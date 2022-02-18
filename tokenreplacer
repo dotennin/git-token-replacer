@@ -1,0 +1,1 @@
+echo $(git remote get-url origin) | sed -r "s/\/\/.+@/\/\/abc@/g"
