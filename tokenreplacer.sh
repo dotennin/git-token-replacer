@@ -4,7 +4,15 @@ then
   exit 1
 fi
 
+git remote get-url origin
+if [ $? != 0 ]
+then
+  echo "There is no git remote url orign information in the current directory!"
+  exit 1
+fi
+
 replace_to=$(echo $(git remote get-url origin) | sed -r "s/\/\/.+@/\/\/$1@/g")
+echo $?
 echo "Current remote url: $(git remote get-url origin)"
 echo "↓"
 echo "↓"
