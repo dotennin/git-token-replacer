@@ -4,16 +4,24 @@ then
   exit 1
 fi
 
-git remote get-url origin
+remote_url=$(git remote get-url origin)
 if [ $? != 0 ]
 then
   echo "There is no git remote url orign information in the current directory!"
   exit 1
 fi
 
-replace_to=$(echo $(git remote get-url origin) | sed -r "s/\/\/.+@/\/\/$1@/g")
-echo $?
-echo "Current remote url: $(git remote get-url origin)"
+# checks the current remote url token exists or not
+echo $remote_url | grep "@"
+if [ $? == 0 ]
+then
+  echo "hello"
+  replace_to=$(echo $remote_url | sed -r "s/\/\/.+@/\/\/$1@/g")
+else
+  replace_to=$(echo $remote_url | sed -r "s/\/\/.?github.com/\/\/$1@github.com/g")
+fi
+
+echo "Current remote url: $remote_url"
 echo "↓"
 echo "↓"
 echo "↓"
