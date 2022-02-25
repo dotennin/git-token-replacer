@@ -13,9 +13,8 @@ fi
 
 # checks the current remote url token exists or not
 echo $remote_url | grep "@"
-if [ $? == 0 ]
+if [ $? -eq 0 ]
 then
-  echo "hello"
   replace_to=$(echo $remote_url | sed -r "s/\/\/.+@/\/\/$1@/g")
 else
   replace_to=$(echo $remote_url | sed -r "s/\/\/.?github.com/\/\/$1@github.com/g")
